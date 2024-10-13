@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 export class Vecpage2Component {
   searchTerm: string = '';
   requests: any[] = [];
+  allSelected: boolean = false;
 
   constructor(private vacationRequestService: VacationRequestService, private router: Router) {
     // Fetch only the requests from 10 to 19 for the second page
@@ -26,6 +27,10 @@ export class Vecpage2Component {
     return this.requests.filter(request =>
       request.name.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
+  }
+  selectAll(event: any) {
+    this.allSelected = event.target.checked; // Update the allSelected value
+    this.requests.forEach(request => request.selected = this.allSelected); // Select/Deselect all requests
   }
 
   // Pagination: Navigate to previous page (Vecpage)
