@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 export class VecpageComponent {
   searchTerm: string = '';
   requests: any[] = [];
+  allSelected: boolean = false;  // To track the "Select All" status
 
   constructor(private vacationRequestService: VacationRequestService, private router: Router) {
     // Fetch only the first 9 requests for the first page
@@ -26,6 +27,12 @@ export class VecpageComponent {
     return this.requests.filter(request =>
       request.name.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
+  }
+
+  // Function to toggle the "Select All" functionality
+  selectAll(event: any) {
+    this.allSelected = event.target.checked; // Update the allSelected value
+    this.requests.forEach(request => request.selected = this.allSelected); // Select/Deselect all requests
   }
 
   // Pagination: Navigate to next page (Vecpage2)
